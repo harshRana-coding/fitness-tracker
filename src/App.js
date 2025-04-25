@@ -5,7 +5,6 @@ import About from './Components/about';
 import Home from './Components/homePage';
 import Profile from './Components/profile';
 import Results from './Components/results';
-import Login from './Components/login';
 // TODO: These imports are required for auth
 // import { AuthProvider } from 'react-auth-kit';
 // import RouteComponent from './routes';
@@ -29,9 +28,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/homePage" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/profile" element={<Profile />} />
         <Route path="/results" element={<Results />} />
-        <Route path="/login" element={<Login />} />
       </Routes>
     </>
   );

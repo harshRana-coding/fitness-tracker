@@ -7,7 +7,7 @@ const AboutPage = () => {
   return (
     <div>
       <Header />
-      <div className="main-container">
+      <div className="about-container">
         {/* About Us Section */}
         <div className="about-card">
           <h2 className="section-title">
