@@ -10,17 +10,18 @@ const HomePage = () => {
   const [weight, setWeight] = useState('');
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
-  const [file, setFile] = useState(null);
+  const [food, setFoodType] = useState('');
 
   const navigate = useNavigate();
 
-  // const handleHeightChange = (e) => setHeight(e.target.value);
-  // const handleWeightChange = (e) => setWeight(e.target.value);
-  // const handleAgeChange = (e) => setAge(e.target.value);
-  // const handleGenderChange = (e) => setGender(e.target.value);
-  // const handleFileChange = (e) => setFile(e.target.files[0]);
+  const handleNameChange = (e) => setName(e.target.value);
+  const handleHeightChange = (e) => setHeight(e.target.value);
+  const handleWeightChange = (e) => setWeight(e.target.value);
+  const handleAgeChange = (e) => setAge(e.target.value);
+  const handleGenderChange = (e) => setGender(e.target.value);
+  const handleFoodChange = (e) => setFoodType(e.target.value);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!name.trim()) {
@@ -47,15 +48,44 @@ const HomePage = () => {
       alert('Please select a gender.');
       return;
     }
-
-    if (!file) {
-      alert('Please upload a file before submitting.');
+  
+    if (!food) {
+      alert('Please select a food preference.');
       return;
     }
 
-    navigate('/results', {
-      state: { name, age, height, weight, file },
-    });
+    const formData = new FormData();
+    formData.append('height', height);
+    formData.append('weight', weight);
+    formData.append('age', age);
+    formData.append('gender', gender);
+    formData.append('foodType', food);
+    for (let [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
+    try {
+      const response = await fetch('http://localhost:8000/api', {
+        method: 'POST',
+        headers: {
+          'accept': 'application/json'
+        },
+        body: formData
+      });
+      const data = await response.json();
+      console.log('Success:', data);
+      const details = {
+        name: name,
+        height: height,
+        weight: weight,
+        age: age
+      }
+      navigate('/results', {
+        state: { details:details, mealPlan : data.meal_plan, workoutPlan: data.workout_plan,needs: data.need },
+      });
+    } catch (error) {
+      console.error('Error:', error);
+    }
+
   };
 
   return (
@@ -75,7 +105,7 @@ const HomePage = () => {
                 id="floatingName"
                 placeholder="Name"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={handleNameChange}
               />
               <label htmlFor="floatingName">Name</label>
             </div>
@@ -86,7 +116,7 @@ const HomePage = () => {
                 id="floatingHeight"
                 placeholder="Height"
                 value={height}
-                onChange={(e) => setHeight(e.target.value)}
+                onChange={handleHeightChange}
               />
               <label htmlFor="floatingHeight">Height (cm)</label>
             </div>
@@ -97,7 +127,7 @@ const HomePage = () => {
                 id="floatingWeight"
                 placeholder="Weight"
                 value={weight}
-                onChange={(e) => setWeight(e.target.value)}
+                onChange={handleWeightChange}
               />
               <label htmlFor="floatingWeight">Weight (kg)</label>
             </div>
@@ -110,7 +140,7 @@ const HomePage = () => {
                     id="floatingAge"
                     placeholder="Age"
                     value={age}
-                    onChange={(e) => setAge(e.target.value)}
+                    onChange={handleAgeChange}
                   />
                   <label htmlFor="floatingAge">Age</label>
                 </div>
@@ -121,27 +151,34 @@ const HomePage = () => {
                     className="form-control"
                     id="genderSelect"
                     value={gender}
-                    onChange={(e) => setGender(e.target.value)}
+                    onChange={handleGenderChange}
                   >
                     <option value="">Select Gender</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
-                    <option value="Other">Other</option>
                   </select>
                   <label htmlFor="genderSelect">Gender</label>
                 </div>
               </div>
             </div>
-            <div className="mb-3">
-              <label htmlFor="uploadFile" className="form-label">
-                Upload Report:
-              </label>
-              <input
-                type="file"
-                className="form-control"
-                id="uploadFile"
-                onChange={(e) => setFile(e.target.files[0])}
-              />
+            <div className='row mb-3'>
+              
+            <div className="col-md-6">
+                <div className="form-floating">
+                  <select
+                    className="form-control"
+                    id="foodPreferenceSelect"
+                    value={food}
+                    onChange={handleFoodChange}
+                  >
+                    <option value="">Select Food Type</option>
+                    <option value="Veg">Veg</option>
+                    <option value="NonVeg">Non-Veg</option>
+                    <option value="Both">Both</option>
+                  </select>
+                  <label htmlFor="FoodPreference">Food Type</label>
+                </div>
+              </div>
             </div>
             <button type="submit" className="btn btn-primary custom-btn">
               Submit
