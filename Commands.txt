@@ -1,0 +1,11 @@
+Frontend:
+	frontend > fitness-web-old
+	npm run start
+Backend:
+	cd path\to\your\project
+	python -m venv venv
+	.\venv\Scripts\activate 
+	Set-ExecutionPolicy -Scope CurrentUser
+	pip install -r requirements.txt
+	uvicorn main:app --reload
+	for nltk error change in file diet_plan_recommender/main.py import nltk and nltk.download("stopwords")
