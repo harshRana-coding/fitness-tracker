@@ -1,8 +1,7 @@
 Frontend:
-	frontend > fitness-web-old
+	npm i
 	npm run start
 Backend:
-	cd path\to\your\project
 	python -m venv venv
 	.\venv\Scripts\activate 
 	Set-ExecutionPolicy -Scope CurrentUser
