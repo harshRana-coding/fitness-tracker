@@ -1,0 +1,51 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@700&family=Poppins:wght@300;400&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+ /* navbar css */
+ .navbar {
+  font-family: "Poppins", serif;
+  font-style: normal;
+  font-weight: 17px;
+  line-height: 26px;
+  text-transform: uppercase;
+  box-shadow: 0 8px 10px -10px gray;
+  --webkit-box-shadow: 0 8px 10px gray;
+  background-color: #3f00b6;
+  position: sticky;
+}
+.navbar-brand {
+  font-family: "Lato", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: none;
+}
+.nav-link {
+  font-weight: 400 !important;
+  color: #3f00b6;
+}
+.active {
+  border-bottom: 2px solid #791ad6;
+}
+
+/* footer */
+.footer {
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  background-color: #791ad6 ;
+  color: white;
+  padding: 25px;
+}
+.footer a {
+  color: white;
+  text-decoration: none;
+  padding: 15px;
+}
+.footer a:hover {
+  color: #f1f1f1b1;
+  border-bottom: 1px solid #f1f1f1b1;
+}
+
